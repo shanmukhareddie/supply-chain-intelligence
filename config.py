@@ -38,6 +38,10 @@ class PipelineConfig:
         "PMAIZMT",   # Maize
     )
 
+    fred_api_key: str = os.getenv("FRED_API_KEY", "")
+
 
 # Singleton — import this everywhere
 config = PipelineConfig()
+
+
