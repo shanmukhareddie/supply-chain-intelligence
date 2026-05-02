@@ -101,17 +101,6 @@ python ingestion/pipeline.py
 | [UN Comtrade](https://comtradeplus.un.org) | Bilateral trade flows by commodity | Annual |
 | [FRED](https://fred.stlouisfed.org) | Baltic Dry Index (freight costs) | Daily |
 
----
-
-## Project Status
-
-- [x] Phase 1 — Data pipeline & engineering backbone
-- [ ] Phase 2 — Analytics & ML forecasting engine
-- [ ] Phase 3 — Business analysis layer
-- [ ] Phase 4 — Interactive dashboard
-- [ ] Phase 5 — Documentation & presentation
-
----
 
 ## License
 

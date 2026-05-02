@@ -25,7 +25,7 @@ load_dotenv()
 
 def _build_connection_url() -> str:
     """Build the PostgreSQL connection URL from environment variables."""
-    # Allow a full DATABASE_URL override (Supabase provides this)
+    # Allow a full DATABASE_URL override
     if url := os.getenv("DATABASE_URL"):
         return url
 

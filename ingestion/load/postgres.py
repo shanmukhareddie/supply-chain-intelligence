@@ -7,15 +7,14 @@ def save_to_db(df, table_name):
     if df.empty:
         logger.info(f"No new data for {table_name}")
         return
-    
+
     engine = get_engine()
     df = df.copy()
-    df['price_usd'] = pd.to_numeric(df['price_usd'], errors='coerce')
-    df = df.dropna(subset=['price_usd'])
-    
-    if df.empty:
-        logger.info(f"No new rows to save for {table_name}")
-        return
+
+    # only convert price_usd if it exists
+    if 'price_usd' in df.columns:
+        df['price_usd'] = pd.to_numeric(df['price_usd'], errors='coerce')
+        df = df.dropna(subset=['price_usd'])
 
     try:
         df.to_sql(
@@ -28,7 +27,6 @@ def save_to_db(df, table_name):
         )
         logger.info(f"Saved {len(df)} new rows to {table_name}")
     except Exception:
-        # Insert row by row, skipping duplicates
         saved = 0
         for _, row in df.iterrows():
             try:
