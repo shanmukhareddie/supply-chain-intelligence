@@ -31,11 +31,11 @@ class PipelineConfig:
 
     # Commodity codes to track (World Bank indicator codes)
     commodity_codes: tuple = (
-        "PCOALAU",   # Coal, Australian
-        "POILAPSP",  # Crude oil, Brent
-        "PNGAS",     # Natural gas
-        "PWHEAMT",   # Wheat
-        "PMAIZMT",   # Maize
+    "DCOILBRENTEU",    # Oil
+    "DHHNGSP",         # Natural Gas
+    "PWHEAMTUSDM",     # Wheat
+    "PCOALAUUSDM",     # Coal
+    "NASDAQQGLDI",     # Gold
     )
 
     fred_api_key: str = os.getenv("FRED_API_KEY", "")
