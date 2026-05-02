@@ -2,7 +2,7 @@
 db_connection.py
 ────────────────
 Single source of truth for database connections.
-Reads credentials from .env — never hardcode them.
+Reads credentials from .env 
 
 Usage:
     from ingestion.db_connection import get_engine, get_session
