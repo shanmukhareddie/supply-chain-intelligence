@@ -7,6 +7,19 @@ def load_commodity_data(commodity, engine):
     df = pd.read_sql(query, engine)
     return df
 
+
+def detect_anomalies(df):
+    df = df.copy()
+    df['rolling_mean'] = df['price_usd'].rolling(window=30).mean()
+    df['rolling_std'] = df['price_usd'].rolling(window=30).std()
+    
+    upper = df['rolling_mean'] + 2 * df['rolling_std']
+    lower = df['rolling_mean'] - 2 * df['rolling_std']
+    
+    anomalies = df[(df['price_usd'] > upper) | (df['price_usd'] < lower)]
+    
+    return anomalies
+
 # def forecast_commmodities(df):
 #     df = df.rename(columns={'date': 'ds', 'price_usd': 'y'})
 #     split = int(len(df) * 0.8)
@@ -34,12 +47,18 @@ def forecast_commmodities(df):
 
     return forecast
 
+
 if __name__ == "__main__":
     from ingestion.db_connection import get_engine
     engine = get_engine()
     df = load_commodity_data("DCOILBRENTEU", engine)
     forecast = forecast_commmodities(df)
     print(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail(10))
+
+    df2 = load_commodity_data("DCOILBRENTEU", engine)
+    anomalies = detect_anomalies(df2)
+    print(f"\nTotal anomalies found: {len(anomalies)}")
+    print(anomalies[['date', 'price_usd', 'rolling_mean']].head(10))
 
 
 
