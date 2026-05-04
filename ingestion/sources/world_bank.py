@@ -37,7 +37,7 @@ def world_bank_pipeline():
                 df['origin_country'] = country
                 df['destination_country'] = "World"
                 df = df.rename(columns={"value": "trade_value_usd", "date": "year"})
-                df['year'] = df['year'].astype(int)  # convert "2023" to 2023
+                df['year'] = df['year'].astype(int)  
                 df['commodity'] = "merchandise"       # add missing commodity column
                 df['source'] = "World Bank"           # add source
                 df = df[['year', 'origin_country', 'destination_country','trade_value_usd', 'trade_flow', 'commodity', 'source']]

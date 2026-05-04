@@ -18,3 +18,22 @@ for code in config.commodity_codes:
         save_to_db(data, "commodities_prices")
     except Exception as e:
         logger.error(f"Failed for {code}: {e}")
+
+
+
+freight_codes = ["NASDAQB4040GI"]
+
+for code in freight_codes:
+    try:
+        latest_date = get_latest_date("freight_indices", code, engine, column="index_name")
+        if latest_date:
+            latest_date = latest_date + timedelta(days=1)
+        data = fetch_fred_data(code, start_date=latest_date)
+        data = data.rename(columns={
+            "price_usd": "value",
+            "commodity": "index_name"
+        })
+        save_to_db(data, "freight_indices")
+        logger.info(f"Processed freight index {code}")
+    except Exception as e:
+        logger.error(f"Failed freight {code}: {e}")

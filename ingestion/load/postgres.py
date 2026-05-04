@@ -3,6 +3,7 @@ from sqlalchemy import text
 from logger import logger
 import pandas as pd
 
+
 def save_to_db(df, table_name):
     if df.empty:
         logger.info(f"No new data for {table_name}")
@@ -11,7 +12,6 @@ def save_to_db(df, table_name):
     engine = get_engine()
     df = df.copy()
 
-    # only convert price_usd if it exists
     if 'price_usd' in df.columns:
         df['price_usd'] = pd.to_numeric(df['price_usd'], errors='coerce')
         df = df.dropna(subset=['price_usd'])
@@ -27,25 +27,25 @@ def save_to_db(df, table_name):
         )
         logger.info(f"Saved {len(df)} new rows to {table_name}")
     except Exception:
-        saved = 0
-        for _, row in df.iterrows():
-            try:
-                pd.DataFrame([row]).to_sql(
-                    name=table_name,
-                    con=engine,
-                    if_exists="append",
-                    index=False
-                )
-                saved += 1
-            except Exception:
-                pass
-        logger.info(f"Saved {saved} new rows to {table_name} (skipped duplicates)")
+        # filter out duplicates then retry once
+        logger.info(f"Duplicates detected — retrying {table_name}")
+        try:
+            df.drop_duplicates().to_sql(
+                name=table_name,
+                con=engine,
+                if_exists="append",
+                index=False,
+                chunksize=500,
+                method="multi"
+            )
+            logger.info(f"Saved rows to {table_name} after dedup")
+        except Exception as e:
+            logger.error(f"Failed to save to {table_name}: {e}")
 
-
-def get_latest_date(table_name, commodity, engine):
+def get_latest_date(table_name, value, engine, column="commodity"):
     with engine.connect() as conn:
         result = conn.execute(
-            text(f"SELECT MAX(date) FROM {table_name} WHERE commodity = :commodity"),
-            {"commodity": commodity}
+            text(f"SELECT MAX(date) FROM {table_name} WHERE {column} = :value"),
+            {"value": value}
         )
         return result.scalar()
