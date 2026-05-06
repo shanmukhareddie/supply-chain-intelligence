@@ -6,7 +6,7 @@ Import this anywhere instead of scattering os.getenv() calls.
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from dotenv import load_dotenv
 
@@ -30,14 +30,13 @@ class PipelineConfig:
     data_end_year: str = "2024"
 
     # Commodity codes to track (World Bank indicator codes)
-    commodity_codes: tuple = (
-    "DCOILBRENTEU",    # Oil
-    "DHHNGSP",         # Natural Gas
-    "PWHEAMTUSDM",     # Wheat
-    "PCOALAUUSDM",     # Coal
-    "NASDAQQGLDI",     # Gold
-    )
-
+    commodity_names: dict = field(default_factory=lambda: {
+        "DCOILBRENTEU": "Brent Crude Oil",
+        "DHHNGSP": "Natural Gas",
+        "PWHEAMTUSDM": "Wheat",
+        "PCOALAUUSDM": "Coal",
+        "NASDAQQGLDI": "Gold"
+    })
     fred_api_key: str = os.getenv("FRED_API_KEY", "")
 
 

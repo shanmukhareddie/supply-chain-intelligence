@@ -1,0 +1,9 @@
+metric,value
+Brent Crude Oil_anomalies,1242.0
+Natural Gas_anomalies,859.0
+Wheat_anomalies,53.0
+Coal_anomalies,59.0
+Gold_anomalies,379.0
+freight_anomalies,335.0
+oil_freight_correlation,0.364
+forecast_horizon_days,90.0
