@@ -23,7 +23,14 @@ from sqlalchemy.orm import sessionmaker, Session
 load_dotenv()
 
 
+
 def _build_connection_url() -> str:
+    try:
+        import streamlit as st
+        if "DATABASE_URL" in st.secrets:
+            return st.secrets["DATABASE_URL"]
+    except Exception:
+        pass
     """Build the PostgreSQL connection URL from environment variables."""
     # Allow a full DATABASE_URL override
     if url := os.getenv("DATABASE_URL"):

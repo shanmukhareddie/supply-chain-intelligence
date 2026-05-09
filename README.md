@@ -6,7 +6,8 @@
 
 An end-to-end supply chain analytics platform that ingests real global commodity and trade data, detects market disruptions, forecasts prices 90 days ahead, and surfaces executive-level risk indicators through a live interactive dashboard.
 
-**[Live Dashboard](https://supply-chain-intelligence.streamlit.app)** · **[GitHub](https://github.com/shanmukhareddie/supply-chain-intelligence)**
+**[Live Dashboard](https://shanmukhareddie-supply-chain.streamlit.app)**
+**[GitHub](https://github.com/shanmukhareddie/supply-chain-intelligence)**
 
 ---
 
