@@ -26,7 +26,8 @@ def calculate_trade_growth(engine):
         GROUP BY year 
         ORDER BY year
     """
-    df = pd.read_sql(query, engine)
+    with engine.connect() as conn:
+        df = pd.read_sql(query, conn)
     df['growth_pct'] = df['trade_sum'].pct_change() * 100
     return round(df['growth_pct'].iloc[-1], 2)
 

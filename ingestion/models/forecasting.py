@@ -6,9 +6,15 @@ from config import config
 
 def load_commodity_data(commodity, engine):
     query = f"SELECT date, price_usd FROM commodities_prices WHERE commodity = '{commodity}' ORDER BY date"
-    df = pd.read_sql(query, engine)
+    with engine.connect() as conn:
+        df = pd.read_sql(query, conn)
     return df
 
+def load_freight_data(engine):
+    query = "SELECT date, value FROM freight_indices ORDER BY date"
+    with engine.connect() as conn:
+        df = pd.read_sql(query, conn)
+    return df
 
 def detect_anomalies(df):
     df = df.copy()
@@ -48,12 +54,6 @@ def forecast_commmodities(df):
     forecast = model.predict(future)
 
     return forecast
-
-
-def load_freight_data(engine):
-    query = "SELECT date, value FROM freight_indices ORDER BY date"
-    df = pd.read_sql(query, engine)
-    return df
 
 def detect_freight_anomalies(df):
     df = df.copy()
