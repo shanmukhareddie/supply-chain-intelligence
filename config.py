@@ -30,6 +30,14 @@ class PipelineConfig:
     data_end_year: str = "2024"
 
     # Commodity codes to track (World Bank indicator codes)
+    commodity_codes: tuple = (
+    "DCOILBRENTEU",
+    "DHHNGSP",
+    "PWHEAMTUSDM",
+    "PCOALAUUSDM",
+    "NASDAQQGLDI",
+    )
+
     commodity_names: dict = field(default_factory=lambda: {
         "DCOILBRENTEU": "Brent Crude Oil",
         "DHHNGSP": "Natural Gas",
@@ -37,7 +45,6 @@ class PipelineConfig:
         "PCOALAUUSDM": "Coal",
         "NASDAQQGLDI": "Gold"
     })
-    fred_api_key: str = os.getenv("FRED_API_KEY", "")
 
 
 # Singleton — import this everywhere
