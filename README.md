@@ -4,9 +4,9 @@
 ![Python](https://img.shields.io/badge/python-3.11-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-An end-to-end supply chain analytics platform that ingests real global commodity and trade data, detects market disruptions, forecasts prices 90 days ahead, and surfaces executive-level risk indicators through a live interactive dashboard.
+An end-to-end supply chain analytics platform that ingests real global commodity data from fred API and trade data from world bank API, detects market disruptions, forecasts prices 90 days ahead, and surfaces executive-level risk indicators through a live interactive streamlit dashboard.
 
-**[Live Dashboard](https://shanmukhareddie-supply-chain.streamlit.app)**
+**[Live Dashboard](https://supply-chain-intelligence.streamlit.app)**
 **[GitHub](https://github.com/shanmukhareddie/supply-chain-intelligence)**
 
 ---
