@@ -65,6 +65,9 @@ def get_cached_engine():
 
 engine = get_cached_engine()
 
+import os
+st.write(f"DB URL starts with: {os.getenv('DATABASE_URL', 'NOT FOUND')[:30]}")
+
 # ── KPIs 
 st.subheader("📊 Key Performance Indicators")
 
