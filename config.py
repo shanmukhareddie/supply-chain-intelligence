@@ -29,6 +29,8 @@ class PipelineConfig:
     data_start_year: str = "2015"
     data_end_year: str = "2024"
 
+    fred_api_key: str = os.getenv("FRED_API_KEY", "")
+
     # Commodity codes to track (World Bank indicator codes)
     commodity_codes: tuple = (
     "DCOILBRENTEU",
